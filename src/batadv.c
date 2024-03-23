@@ -159,6 +159,7 @@ int gluon_diagnostic_get_batadv_clients() {
 			.err = 0,
 		},
 	};
+	int ret;
 
 	ret = batadv_genl_query("bat0", BATADV_CMD_GET_TRANSTABLE_LOCAL,
 							parse_clients_list_netlink_cb, NLM_F_DUMP,
