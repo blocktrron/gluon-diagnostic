@@ -34,6 +34,11 @@ static const enum batadv_nl_attrs parse_orig_list_mandatory[] = {
 	BATADV_ATTR_LAST_SEEN_MSECS,
 };
 
+static const enum batadv_nl_attrs clients_mandatory[] = {
+	BATADV_ATTR_TT_FLAGS,
+	BATADV_ATTR_LAST_SEEN_MSECS,
+};
+
 static int parse_orig_list_netlink_cb(struct nl_msg *msg, void *arg)
 {
 	struct nlattr *attrs[BATADV_ATTR_MAX+1];
@@ -139,7 +144,7 @@ static int parse_clients_list_netlink_cb(struct nl_msg *msg, void *arg)
 		return NL_OK;
 
 	lastseen = nla_get_u32(attrs[BATADV_ATTR_LAST_SEEN_MSECS]);
-	if (lastseen > MAX_INACTIVITY)
+	if (lastseen > (60 * 1000))
 		return NL_OK;
 
 	opts->clients++;
