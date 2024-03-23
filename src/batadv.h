@@ -12,3 +12,4 @@ struct gluon_diagnostic_batadv_neighbor_stats {
 };
 
 int gluon_diagnostic_get_batadv_neighbor_stats(struct gluon_diagnostic_batadv_neighbor_stats *stats);
+int gluon_diagnostic_get_batadv_clients();

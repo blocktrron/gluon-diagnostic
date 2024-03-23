@@ -79,6 +79,7 @@ int gluon_beacon_diagnostic_information_node_id_collect(uint8_t *buffer, size_t 
 int gluon_beacon_diagnostic_information_batman_adv_collect(uint8_t *buffer, size_t buffer_size) {
 	struct gluon_diagnostic_batadv_neighbor_stats stats = {};
 	uint16_t tmp;
+	uint16_t num_clients;
 	int ret;
 
 	if (buffer_size < 3) {
@@ -89,6 +90,12 @@ int gluon_beacon_diagnostic_information_batman_adv_collect(uint8_t *buffer, size
 	if (ret)
 		return -1;
 	
+	ret = gluon_diagnostic_get_batadv_clients();
+	if (ret < 0) {
+		num_clients = 0;
+	} else {
+		num_clients = (uint16_t)ret;
+	}	
 
 	buffer[0] = stats.vpn.connected ? 1 : 0;
 	buffer[1] = stats.vpn.tq;
@@ -98,6 +105,9 @@ int gluon_beacon_diagnostic_information_batman_adv_collect(uint8_t *buffer, size
 
 	tmp = htons(stats.neighbor_count);
 	memcpy(&buffer[4], &tmp, sizeof(tmp));
+
+	tmp = htons(num_clients);
+	memcpy(&buffer[6], &tmp, sizeof(tmp));
 
 	return 6;
 }
@@ -217,6 +227,8 @@ int gluon_beacon_diagnostic_information_batman_adv_parse(const uint8_t *buffer, 
 	printf("Originator count: %d\n", ntohs(*tmp));
 	tmp = (uint16_t *)&ie_buf[4];
 	printf("Neighbor count: %d\n", ntohs(*tmp));
+	tmp = (uint16_t *)&ie_buf[6];
+	printf("Client count: %d\n", ntohs(*tmp));
 
 	return 0;
 }
