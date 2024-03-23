@@ -229,6 +229,7 @@ int gluon_beacon_diagnostic_information_uptime_parse(const uint8_t *buffer, size
 	uint8_t hours, minutes;
 
 	memcpy(&uptime_minutes, ie_buf, sizeof(uptime_minutes));
+	uptime_minutes = ntohl(uptime_minutes);
 
 	minutes = uptime_minutes % 60;
 	hours = (uptime_minutes / 60) % 24;
