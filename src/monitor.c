@@ -608,6 +608,10 @@ int monitor_print_information(struct scanned_gluon_nodes *nodes)
 
 		/* Print Information Elements */
 		ret = ieee80211_information_elements_iterate(node->information_elements, node->information_elements_len, monitor_gluon_node_print_elements, node);
+
+		/* Print newline */
+		if (i < nodes->len - 1)
+			printf("\n");
 	}
 	return 0;
 }
