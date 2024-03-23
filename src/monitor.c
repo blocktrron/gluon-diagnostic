@@ -580,7 +580,14 @@ int monitor_gluon_node_print_elements(const uint8_t *tlv, size_t tlv_len, void *
 		log_debug("Check information source for type=%d name=%s", information_source->type, information_source->name);
 		if (information_source->type == tlv[0]) {
 			log_debug("Found information source for type=%d name=%s", tlv[0], information_source->name);
-			ret = information_source->parse(tlv, tlv_len);
+
+			/* Check length validity */
+			if (tlv_len < 2 || tlv_len - 2 < tlv[1]) {
+				log_error("IE has invalid length.");
+				return -EINVAL;
+			}
+
+			ret = information_source->parse(&tlv[2], tlv[1]);
 			if (ret) {
 				log_error("Failed to parse information element. ret=%d", ret);
 				return ret;

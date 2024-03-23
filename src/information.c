@@ -197,28 +197,21 @@ out_free:
 
 #else
 
-int gluon_beacon_diagnostic_information_hostname_parse(const uint8_t *buffer, size_t buffer_size) {
+int gluon_beacon_diagnostic_information_hostname_parse(const uint8_t *ie_buf, size_t ie_len) {
 	char hostname[255] = {};
-	const uint8_t *ie_buf = &buffer[2];
-	uint8_t ie_len = buffer[1];
 
 	memcpy(hostname, ie_buf, ie_len);
 	printf("Hostname: %s\n", hostname);
 	return 0;
 }
 
-int gluon_beacon_diagnostic_information_node_id_parse(const uint8_t *buffer, size_t buffer_size) {
-	const uint8_t *ie_buf = &buffer[2];
-	uint8_t ie_len = buffer[1];
-	
+int gluon_beacon_diagnostic_information_node_id_parse(const uint8_t *ie_buf, size_t ie_len) {	
 	/* We Print Node-ID on top */
 
 	return 0;
 }
 
-int gluon_beacon_diagnostic_information_batman_adv_parse(const uint8_t *buffer, size_t buffer_size) {
-	const uint8_t *ie_buf = &buffer[2];
-	uint8_t ie_len = buffer[1];
+int gluon_beacon_diagnostic_information_batman_adv_parse(const uint8_t *ie_buf, size_t ie_len) {
 	uint16_t *tmp;
 
 	if (ie_len < 8)
@@ -236,9 +229,7 @@ int gluon_beacon_diagnostic_information_batman_adv_parse(const uint8_t *buffer, 
 	return 0;
 }
 
-int gluon_beacon_diagnostic_information_uptime_parse(const uint8_t *buffer, size_t buffer_size) {
-	const uint8_t *ie_buf = &buffer[2];
-	uint8_t ie_len = buffer[1];
+int gluon_beacon_diagnostic_information_uptime_parse(const uint8_t *ie_buf, size_t ie_len) {
 	uint32_t uptime_minutes;
 	uint16_t days;
 	uint8_t hours, minutes;
@@ -257,9 +248,7 @@ int gluon_beacon_diagnostic_information_uptime_parse(const uint8_t *buffer, size
 	return 0;
 }
 
-int gluon_beacon_diagnostic_information_site_code_parse(const uint8_t *buffer, size_t buffer_size) {
-	const uint8_t *ie_buf = &buffer[2];
-	uint8_t ie_len = buffer[1];
+int gluon_beacon_diagnostic_information_site_code_parse(const uint8_t *ie_buf, size_t ie_len) {
 	char *tmp;
 
 	tmp = malloc(ie_len + 1);
@@ -275,9 +264,7 @@ int gluon_beacon_diagnostic_information_site_code_parse(const uint8_t *buffer, s
 	return 0;
 }
 
-int gluon_beacon_diagnostic_information_domain_parse(const uint8_t *buffer, size_t buffer_size) {
-	const uint8_t *ie_buf = &buffer[2];
-	uint8_t ie_len = buffer[1];
+int gluon_beacon_diagnostic_information_domain_parse(const uint8_t *ie_buf, size_t ie_len) {
 	char *tmp;
 
 	tmp = malloc(ie_len + 1);
