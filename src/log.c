@@ -30,6 +30,10 @@ static void log_vprintf(enum log_level level, const char *fmt, va_list args) {
 	fprintf(stderr, "\n");
 }
 
+void log_set_level(enum log_level level) {
+	log_level = level;
+}
+
 void log_error(const char *fmt, ...) {
 	va_list args;
 	va_start(args, fmt);
