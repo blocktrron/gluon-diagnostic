@@ -60,7 +60,7 @@ int create_vendor_element_buf() {
 	
 	/* Loop through all information-sources */
 	for (int i = 0; information_sources[i].name; i++) {
-		log_debug("Collecting information id=%d name=%s\n", information_sources[i].type, information_sources[i].name);
+		log_debug("Collecting information id=%d name=%s", information_sources[i].type, information_sources[i].name);
 		/* Check if we have space for T + L + {data} */
 		if (gbi.output.len + 3 > gbi.output.size) {
 			log_error("Buffer too small for id=%d name=%s", information_sources[i].type, information_sources[i].name);
@@ -96,12 +96,12 @@ int create_vendor_element_buf() {
 		/* Update total Length */
 		gbi.output.len += ret + 2;
 
-		log_debug("Add Element to beacon id=%d name=%s element_length=%d total_length=%d\n", information_sources[i].type, information_sources[i].name, ret, gbi.output.len);
+		log_debug("Add Element to beacon id=%d name=%s element_length=%d total_length=%d", information_sources[i].type, information_sources[i].name, ret, gbi.output.len);
 	}
 
 	/* Set Length */
 	gbi.output.buf[1] = gbi.output.len - 2;
-	log_debug("Set length of beacon element element_length=%u total_length=%d\n", gbi.output.buf[1], gbi.output.len);
+	log_debug("Set length of beacon element element_length=%u total_length=%d", gbi.output.buf[1], gbi.output.len);
 
 	return 0;
 }
@@ -126,7 +126,7 @@ static void collect_information(struct uloop_timeout *timeout) {
 	buffer_to_hexstring(gbi.output.buf, gbi.output.len, buf_hex);
 
 	/* Update nodes */
-	log_debug("Update %s\n", buf_hex);
+	log_debug("Update %s", buf_hex);
 	gluon_diagnostic_interface_update(instance->ubus_ctx, (char *)buf_hex);
 
 out_free:
@@ -141,7 +141,7 @@ static int start_daemon() {
 
 	instance.ubus_ctx = ubus_connect(NULL);
 	if (!instance.ubus_ctx) {
-		fprintf(stderr, "Failed to connect to ubus\n");
+		fprintf(stderr, "Failed to connect to ubus");
 		return -1;
 	}
 
