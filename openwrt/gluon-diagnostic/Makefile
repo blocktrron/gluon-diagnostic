@@ -13,6 +13,9 @@ define Build/Prepare
 endef
 
 MAKE_PATH:=src
+MAKE_VARS += \
+        NL_LIB="libnl-tiny" \
+        NL_GENL_LIB="libnl-tiny"
 
 define Package/gluon-diagnostic
   SECTION:=net
