@@ -26,17 +26,17 @@ int ieee80211_information_elements_iterate(uint8_t *ie_buf, size_t ie_buf_len, i
 
 		log_debug("Process Information Element element=%d length=%d", ie[0], ie_len);
 		if (ie_len > ie_remaining) {
-			log_info("Invalid Information Element length %d > %d", ie_len, ie_remaining);
+			log_debug("Invalid Information Element length %d > %d", ie_len, ie_remaining);
 			return -1;
 		}
 
 		if (ie_len == 0 || ie_len == 0xff) {
-			log_info("Invalid Information Element length %d", ie_len);
+			log_debug("Invalid Information Element length %d", ie_len);
 			return -1;
 		}
 
 		if (cb) {
-			log_info("Hand over to callback");
+			log_debug("Hand over to callback");
 			if (cb(ie, ie_remaining, data) != 0)
 				return -1;
 		}

@@ -433,7 +433,7 @@ static int monitor_gluon_node_add(const char *bssid,
 
 	ret = ieee80211_information_elements_validate(information_elements, information_elements_len);
 	if (ret) {
-		log_error("Failed to validate information elements. ret=%d", ret);
+		log_debug("Failed to validate information elements. ret=%d", ret);
 		return ret;
 	}
 
