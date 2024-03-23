@@ -220,6 +220,9 @@ int gluon_beacon_diagnostic_information_batman_adv_parse(const uint8_t *buffer, 
 	const uint8_t *ie_buf = &buffer[2];
 	uint8_t ie_len = buffer[1];
 	uint16_t *tmp;
+
+	if (ie_len < 8)
+		return -1;
 	
 	printf("VPN connected: %s\n", ie_buf[0] ? "Yes" : "No");
 	printf("VPN-TQ: %d\n", ie_buf[1]);
@@ -239,6 +242,9 @@ int gluon_beacon_diagnostic_information_uptime_parse(const uint8_t *buffer, size
 	uint32_t uptime_minutes;
 	uint16_t days;
 	uint8_t hours, minutes;
+
+	if (ie_len < 4)
+		return -1;
 
 	memcpy(&uptime_minutes, ie_buf, sizeof(uptime_minutes));
 	uptime_minutes = ntohl(uptime_minutes);
